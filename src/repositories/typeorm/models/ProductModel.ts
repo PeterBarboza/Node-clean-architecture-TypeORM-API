@@ -1,5 +1,4 @@
 import { Entity, Column, CreateDateColumn, ManyToOne } from "typeorm"
-import { v4 as uuid } from "uuid"
 
 import { Product } from "../../../domain/entities/Product"
 import { CategoryModel } from "./CategoryModel"
@@ -18,12 +17,15 @@ export class ProductModel implements Product {
   @Column({ type: "float" })
   price!: number
 
-  @ManyToOne(() => CategoryModel, (category) => category.products, { eager: false, nullable: false })
-  category!: CategoryModel
-
-  constructor() {
-    if(!this.id) {
-      this.id = uuid()
+  @ManyToOne(
+    () => CategoryModel,
+    (category) => category.products,
+    {
+      eager: true,
+      nullable: false,
+      onDelete: 'NO ACTION',
+      onUpdate: 'CASCADE',
     }
-  }
+  )
+  category!: CategoryModel
 }
