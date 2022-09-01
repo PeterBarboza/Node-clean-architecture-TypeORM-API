@@ -1,13 +1,15 @@
+import { v4 as uuid } from "uuid"
+
 import { Category } from "../entities/Category"
 
 type filter = { [key: string]: string }
 type GetManyOptions = {
-    limit: number
-    skip: number
+  limit: number
+  skip: number
 }
 type GetManyResult<Entity> = {
-    total: number
-    results: Entity[]
+  total: number
+  results: Entity[]
 }
 
 export class CategoriesService {
@@ -23,7 +25,12 @@ export class CategoriesService {
     return this.categoriesRepository.getOneById(id)
   }
   create(entityData: Category): Promise<Category> {
-    return this.categoriesRepository.create(entityData)
+    const entity: Category = {
+      id: uuid(),
+      ...entityData
+    }
+
+    return this.categoriesRepository.create(entity)
   }
   updateById(id: string, entity: Category): Promise<void> {
     return this.categoriesRepository.updateById(id, entity)
