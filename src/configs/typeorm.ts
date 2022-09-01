@@ -4,7 +4,7 @@ const modelsRelativePath = "repositories/typeorm/models/*.{ts,js}"
 const migrationsRelativePath = "repositories/typeorm/migrations/*.{ts,js}"
 
 export const typeormConfig: DataSourceOptions = {
-  type: "mysql",
+    type: "mysql",
     url: process.env.DATABASE_URL,
     host: process.env.DATABASE_HOST,
     database: process.env.DATABASE_NAME,
@@ -20,5 +20,12 @@ export const typeormConfig: DataSourceOptions = {
         `src/${migrationsRelativePath}`,
         `dist/${migrationsRelativePath}`,
     ],
-    ...((process.env.DATABASE_HOST || "").includes("ssl") ? { ssl: {} } : {})
+    ...(
+        (process.env.DATABASE_HOST || "").includes("ssl") ?
+            {
+                ssl: {}
+            }
+            :
+            {}
+    )
 }
