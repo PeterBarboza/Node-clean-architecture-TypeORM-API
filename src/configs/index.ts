@@ -3,6 +3,6 @@ import "dotenv/config"
 import { typeormConfig } from "./typeorm"
 
 export const CONFIG = {
-  PORT: 3000,
+  PORT: process.env.PORT,
   DB: typeormConfig,
 }
